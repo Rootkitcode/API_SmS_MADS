@@ -1,0 +1,184 @@
+{
+"openapi": "3.0.0",
+"info": {
+    "description": "API MADS SMS",
+    "version": "1.0.0",
+    "title": "MADS SMS",
+    "contact": {
+        "email": "coaldar85@gmail.com"
+    },
+    "license": {
+        "name": "MIT"
+    }
+},
+"servers": [
+    {
+        "url": "http://127.0.0.1:5000/",
+        "description": "Local server"
+        
+
+    }
+],
+
+"paths": {
+    "/users_data/{id}": {
+        "get": {
+            "tags": [
+                "User Data"
+            ],
+            "summary": "Get user data",
+            "description": "Get user data",
+            "operationId": "getUserData",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [
+                {
+                    "in": "path",
+                    "name": "id",
+                    "description": "get user data",
+                    "required": true,
+                    "schema": {
+                        "$ref": "#/definitions/id"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Successful operation",
+                    "schema": {
+                        "$ref": "#/definitions/id"
+                    }
+                },
+                "400": {
+                    "description": "Invalid input"
+                },
+                "403": {
+                    "description": "Forbidden"
+                }
+                
+            }
+
+           
+        }
+    }
+
+},
+
+"tags":[
+    {
+        "name": "sms",
+        "description": "SMS"
+    }
+],
+
+"components":{
+    "schemas":{
+        "api_key_mads_sms":{
+            "properties":{
+                "api_key":{
+                    "type":"string",
+                      "description":"API Key",
+                        "example":"vx67f6gs7687gcs87876fsfdgshs"
+                    
+                }
+            }
+    },
+    "sms":{
+        "type": "string",
+        "properties": {
+            "title": {
+                "type": "string",
+                "format": "Title of the SMS"
+            },
+            "email": {
+                "type": "string",
+                "format": "Email of the SMS"
+            },
+            "phone": {
+                "type": "string",
+                "format": "Phone of the SMS"
+            },
+            "message": {
+                "type": "string",
+                "format": "Message of the SMS"
+            },
+            "date": {
+                "type": "string",
+                "format": "Date of the SMS"
+            },
+            "time": {
+                "type": "string",
+                "format": "Time of the SMS"
+            },
+            "status": {
+                "type": "string",
+                "format": "Status of the SMS"
+            },
+            "key": {
+                "type": "string",
+                "format": "Key of the SMS"
+            }
+        }
+    },
+    "sms_logs":{
+        "type": "string",
+        "properties": {
+            "title": {
+                "type": "string",
+                "format": "logs of the SMS"
+            },
+            "number": {
+                "type": "string",
+                "format": "Number of the SMS"
+            },
+            "status": {
+                "type": "string",
+                "format": "Status of the SMS"
+            }
+        }
+    },
+
+    "tikets":{
+        "type": "string",
+        "properties": {
+            "title": {
+                "type": "string",
+                "format": "Title of the Tiket"
+            },
+            "email_from": {
+                "type": "string",
+                "format": "Email of the Tiket from "
+            },
+            "email_to": {
+                "type": "string",
+                "format": "Email of the Tiket to"
+            },
+            "message": {
+                "type": "string",
+                "format": "Message of the Tiket"
+            },
+            "date": {
+                "type": "string",
+                "format": "Date of the Tiket"
+            },
+            "time": {
+                "type": "string",
+                "format": "Time of the Tiket"
+            },
+            "status": {
+                "type": "string",
+                "format": "Status of the Tiket"
+            },
+            "key": {
+                "type": "string",
+                "format": "Key of the Tiket"
+            }
+        }
+    }
+}
+}
+}

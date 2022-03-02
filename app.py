@@ -1,266 +1,119 @@
-# import jwt
-# import datetime
 
-from functools import wraps
-from pickle import GET
-from sqlite3 import connect
-import pymysql
-from distutils.command.config import config
-from conection_db.connection import *    
-from flask import Flask, jsonify, request, make_response
-from config import config
+from flask import Flask, render_template
+from flask_swagger_ui import get_swaggerui_blueprint
+from endpoints.endpoints_get import *
+from endpoints.endpoints_post import *
 
 
 
-'''rutas get clients, user_plans, sms send, paises, admin, user contrl'''
 app = Flask(__name__)
 
-
-
-
+'''Rutas de endpoints get sms MADS'''
 @app.route('/')
-def home():
-    return "<h1>Bienvenido a la API de la aplicacion de SMS</h1>"
-      
+def wellcome():
+    return render_template('user_data.html')
 
-#endpoint para obtener datos de los usuarios clientes de SMS MADS
+
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "MADS"
+    }
+)
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
 
 @app.route('/users_data/<int:id>', methods=['GET'])
-def listar_users_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, name, email, mobile, username, image, country, city, post_code, address FROM users_data WHERE id = '{0}'" .format(id))
-            rows = cursor.fetchone()
-            if rows != None:
-                respuesta = jsonify(rows)
-                respuesta.status_code = 200
-                return jsonify('ok 200', rows)
-            else:
-                return jsonify ('<h1>No hay datos en la db</h1>')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def userdata(id):
+    return listar_users_get(id)
 
-
-#Endpoin que permite obtener los mensajes sms enviados a los usuarios finales
 @app.route('/message/<int:id>', methods=['GET'])
-def message_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, mensaje, fecha, estado FROM messages WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id') 
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def message(id):
+    return message_get(id)
 
-
-# endpoint que permite consultar el cliente final que recibe los sms
 @app.route('/clientes_empresa/<int:id>', methods=['GET'])
-def clientes_empresa_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, nombre, apellidos, numero_telefono, pais, ciudad, direccion FROM clientes_empresa WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id') 
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def clientes(id):
+    return clientes_empresa_get(id)
 
-
-#Endpoint que me permite obtener las pruebas de envio de sms
 @app.route('/prueba_sms/<int:documento>', methods=['GET'])
-def prueba_sms_get(documento):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT documento, nombre, telefono, ciudad FROM prueba_sms WHERE documento = '{0}'".format(documento))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el documento') 
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def prueba(documento):
+    return prueba_sms_get(documento)
 
-
-#Endpoint que me permite obtener informacion de las transacciones
 @app.route('/transactions/<int:id>', methods=['GET'])
-def transactions_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, to_add, to_bal, from_add, from_bal, amount, type, trx FROM transections WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def transactions(id):
+    return transactions_get(id)
 
-
-#endpoint para obtener el token de la empresa
 @app.route('/token_api/<int:id>', methods=['GET'])
-def token(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, token FROM token_api WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el token id')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def token_api(id):
+    return token(id)
 
-
-
-#endpoint para obtener los tikets de soporte
 @app.route('/support_tickets/<int:id>', methods=['GET'])
-def support_tickets_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, user_id, subject, status FROM support_tickets WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id del support')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def support(id):
+    return support_tickets_get(id)
 
-
-
-
-#endpoint para obtener los tikets de soporte
 @app.route('/support_messages/<int:id>', methods=['GET'])
-def support_messages_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, support_ticket_id, type, message FROM support_messages WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id del support')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def support_messages(id):
+    return support_messages_get(id)
 
-#endpoint que permite obtener los logs de los sms
 @app.route('/sms_logs/<int:id>', methods=['GET'])
-def sms_logs_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, user_id, number, status FROM sms_logs WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id del sms')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def sms_logs(id):
+    return sms_logs_get(id)
 
-
-#endpoint para obtener empresas registras
 @app.route('/registro_clientes_planes/<int:id>', methods=['GET'])
-def registro_clientes_planes_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, email, nombre_empresa, nit_empresa, ciudad, telefono, representante, planes_sms, sms_1_alerta, sms_2_alerta FROM registro_clientes_planes WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id del registro')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def registro_clientes_planes(id):
+    return registro_clientes_planes_get(id)
 
-
-#endpoint para obtener el receptor de los sms
 @app.route('/receptor_sms/<int:documento>', methods=['GET'])
-def receptor_sms_delete(documento):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT documento, nombre, telefono, ciudad FROM receptor_sms WHERE documento = '{0}'".format(documento))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id del registro')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
-
+def receptor_sms(documento):
+    return receptor_sms_get(documento)
 
 @app.route('/numeros_telefonos/<int:id>', methods=['GET'])
-def numeros_telefono_get(id):
-    try:
-        if request.method == 'GET':
-            conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, fecha, telefonos FROM numeros_telefonos WHERE id = '{0}'".format(id))
-            row = cursor.fetchone()
-            if row != None:
-                respuesta = jsonify(row)
-                respuesta.status_code = 200
-                return jsonify ('ok coneccion exitosa', row)
-            else:
-                return jsonify ('No se encontro el id del numero')
-    except Exception as e:
-                return jsonify ("Error en la coneccion de la base de datos",e)
+def numeros_telefonos(id):
+    return numeros_telefono_get(id)
+
+@app.route('/respuesta/ticket/<int:id>', methods=['GET'])
+def respuesta_ticket(id):
+    return respuesta_ticket_get(id)
 
 
 
-def pagina_no_encontrada(error):
-    return "<h1>Pagina no encontrada...</h1>"
-            
+# endpoints post
+
+@app.route('/add/user/data', methods=['POST'])
+def userDa():
+    return userData() #endpoint post
+
+@app.route('/message', methods=['POST'])
+def messagesPost():
+    return messages()  # endpoints post
+
+@app.route('/add/clientes/empresa', methods=['POST'])
+def clientesEmpresa():
+    return cleintes_empresa()  # endpoints post
+
+@app.route('/prueba_sms', methods=['POST'])
+def pruebSms():
+    return prueba_sms()  # endpoints post
+
+@app.route('/support_tickets', methods=['POST'])
+def supportTickets():
+    return support_tickets() # endpoints post
+
+@app.route('/support_messages', methods=['POST'])
+def supportMess():
+    return supportMessages()
 
 
 if __name__ == '__main__':
-    app.config.from_object(config['development'])
-    app.register_error_handler(404, pagina_no_encontrada)
-    app.run()
+    app.run(debug=True)
+
+
+
+
+
+
+
     

@@ -14,3 +14,11 @@ This Api is build on python with flask and flasgger
 '/registro_clientes_planes/<int:id>'
 '/receptor_sms/<int:documento>'
 '/numeros_telefonos/<int:id>'
+
+
+# endpoints post
+'/add/user/data'
+'/message'
+'/add/clientes/empresa'
+'/prueba_sms'
+'/support_tickets'
