@@ -11,7 +11,7 @@ mysql.init_app(app)
 app.config['MYSQL_DATABASE_HOST'] = "localhost"
 app.config['MYSQL_DATABASE_USER'] = "root"
 app.config['MYSQL_DATABASE_PASSWORD'] = ""
-app.config['MYSQL_DATABASE_DB'] = "laravel"
+app.config['MYSQL_DATABASE_DB'] = "laravel2"
 
 
 # app.config.setdefault("MYSQL_UNIX_SOCKET", None)
