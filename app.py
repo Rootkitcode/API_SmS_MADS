@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from flask_swagger_ui import get_swaggerui_blueprint
 from endpoints.endpoints_get import *
 from endpoints.endpoints_post import *
+from endpoints.endpoints_put import clientes_empresa_update, messages_update
 
 
 
@@ -106,6 +107,21 @@ def supportTickets():
 def supportMess():
     return supportMessages()
 
+@app.route('/registro_clientes_planes', methods=['POST'])
+def registroClientes(): # endpoints post
+    return registro_clientes_planes()
+
+
+#endpoins put
+
+@app.route('/update_messages/<int:id>', methods=['PUT'])
+def messagesPut(id):
+    return messages_update(id)
+
+@app.route('/update_clientes_empresa/<int:id>', methods=['PUT'])
+def clientesEmpresaPut(id):
+    return clientes_empresa_update(id)
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

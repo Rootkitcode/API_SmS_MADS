@@ -22,3 +22,10 @@ This Api is build on python with flask and flasgger
 '/add/clientes/empresa'
 '/prueba_sms'
 '/support_tickets'
+'/support_messages'
+'/registro_clientes_planes'
+
+
+# endpoints PUT
+'/update_messages/<int:id>'
+/update_clientes_empresa/<int:id>

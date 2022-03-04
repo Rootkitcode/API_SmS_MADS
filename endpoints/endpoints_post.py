@@ -1,6 +1,5 @@
 
 from functools import wraps
-from pickle import GET
 from sqlite3 import connect
 import pymysql
 from distutils.command.config import config
@@ -25,10 +24,8 @@ from endpoints.endpoints_post import app
 '/prueba_sms
 '/support_tickets'
 '/support_messages'
-'/sms_logs/<int:id>'
-'/registro_clientes_planes/<int:id>'
-'/receptor_sms/<int:documento>'
-'/numeros_telefonos/<int:id>' '''
+'/registro_clientes_planes'
+ '''
 
 
 from flask import request
@@ -150,3 +147,24 @@ def supportMessages():
                 str(type_message) + str(message)})
     except Exception as e:
             return jsonify({'message': ' support message no added Error'})
+
+
+
+def registro_clientes_planes():
+    try:
+        email = request.form['email']
+        nombre_empresa = request.form['nombre_empresa']
+        nit_empresa = request.form['nit_empresa']
+        ciudad = request.form['ciudad']
+        telefono = request.form['telefono']
+        representante = request.form['representante']
+        if request.method == 'POST':
+            conn = mysql.connect()
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("INSERT INTO registro_clientes_planes(email, nombre_empresa, nit_empresa, ciudad, telefono, representante) VALUES(%s, %s, %s, %s, %s, %s)",
+            (email ,nombre_empresa, nit_empresa, ciudad, telefono, representante))
+            cursor.connection.commit()
+            return jsonify({'message': 'clientes planes added successfully' + str(email) +
+                str(nombre_empresa) + str(nit_empresa) + str(ciudad) + str(telefono) + str(representante)})
+    except Exception as e:
+            return jsonify({'message': 'clientes planes not added'})

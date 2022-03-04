@@ -42,15 +42,16 @@
                     "description": "get user data",
                     "required": true,
                     "schema": {
-                        "$ref": "#/definitions/id"
+                        "type": "integer",
+                        "format": "int64",
+                        "id": "http://localhost:5000/users_data/{id}",
+                       
                     }
                 }
             ],
             "responses": {
                 "200": {
-                    "description": "Successful operation",
-                    "schema": {
-                        "$ref": "#/definitions/id"
+                    "description": "Successful operation"
                     }
                 },
                 "400": {
@@ -64,9 +65,7 @@
 
            
         }
-    }
-
-},
+    },
 
 "tags":[
     {
