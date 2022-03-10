@@ -3,7 +3,8 @@ from flask import Flask, render_template
 from flask_swagger_ui import get_swaggerui_blueprint
 from endpoints.endpoints_get import *
 from endpoints.endpoints_post import *
-from endpoints.endpoints_put import clientes_empresa_update, messages_update
+from endpoints.endpoints_put import *
+from endpoints.endpoints_delete import *
 
 
 
@@ -83,11 +84,11 @@ def respuesta_ticket(id):
 
 # endpoints post
 
-@app.route('/add/user/data', methods=['POST'])
+@app.route('/add_userData', methods=['POST'])
 def userDa():
     return userData() #endpoint post
 
-@app.route('/message', methods=['POST'])
+@app.route('/add_message', methods=['POST'])
 def messagesPost():
     return messages()  # endpoints post
 
@@ -121,7 +122,27 @@ def messagesPut(id):
 @app.route('/update_clientes_empresa/<int:id>', methods=['PUT'])
 def clientesEmpresaPut(id):
     return clientes_empresa_update(id)
-    
+
+
+
+
+# endpoints delete
+
+@app.route('/delete/users_data/<int:id>', methods=['DELETE'])
+def deleteUsersData(id):
+    return delete_users_data(id)
+
+@app.route('/delete/admin/<int:id>', methods=['DELETE'])
+def deleteAdmins(id):
+    return delete_admin(id)
+
+@app.route('/delete/clientes_empresa/<int:id>', methods=['DELETE'])
+def deleteClientesEmpresa(id):
+    return delete_clientes(id)
+
+@app.route('/delete/numeros_telefonos/<int:id>', methods=['DELETE'])
+def deleteNumerosTelefonos(id):
+    return delete_numeros_telefono(id)
 
 if __name__ == '__main__':
     app.run(debug=True)

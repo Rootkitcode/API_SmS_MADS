@@ -2,9 +2,9 @@
 This Api is build on python with flask and flasgger
 
 # endpoints get
-'/users_data/<int:id>'
-'/message/<int:id>'
-'/clientes_empresa/<int:id>'
+'/users_data/<int:id>' ok
+'/message/<int:id>' ok
+'/clientes_empresa/<int:id>' ok
 '/prueba_sms/<int:documento>
 '/transactions/<int:id>'
 '/token_api/<int:id>'
@@ -17,9 +17,9 @@ This Api is build on python with flask and flasgger
 
 
 # endpoints post
-'/add/user/data'
-'/message'
-'/add/clientes/empresa'
+'/add/user/data' ok
+'/add_message' ok
+'/add/clientes/empresa'  ok
 '/prueba_sms'
 '/support_tickets'
 '/support_messages'
@@ -27,5 +27,15 @@ This Api is build on python with flask and flasgger
 
 
 # endpoints PUT
-'/update_messages/<int:id>'
+'/update_messages/<int:id>' ok
 /update_clientes_empresa/<int:id>
+
+
+# endpoint delete
+
+'/delete/admin/<int:id>'
+'/delete/clientes_empresa/<int:id>'
+'/delete/numeros_telefono/<inte:id>'
+'/delete/users_data/<int:id>' ok
+
+

@@ -8,7 +8,7 @@
         "email": "coaldar85@gmail.com"
     },
     "license": {
-        "name": "MIT"
+        "name": "Darwin Tusarma, Monica Yiseth, Alexis Carreño, Santiago Diaz, MIT"
     }
 },
 "servers": [
@@ -19,8 +19,64 @@
 
     }
 ],
+"schemes": [
+    "http"
+],
 
 "paths": {
+    "/add_userData":{
+        "post":{
+            "tags": [
+                "User Data"
+            ],
+            "summary": "Add user data",
+            "description": "Add user data",
+            "operationId": "addUserData",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "add_userData",
+                    "description": "add User data to the database",
+                    "required": true,
+                    "schema": {
+                        "id": "#/definitions/add_userData",
+                    "example": {
+                        "name": "John",
+                        "email": "email@email.com",
+                        "mobile": "455554545",
+                        "username": "john",
+                        "password": "123456",
+                        "profile_photo_path": "phto.jpg",
+                        "country": "USA",
+                        "city": "New York",
+                        "postal_code": "12345",
+                        "address": "123 Street"
+                    }
+                }
+            }
+    
+            
+            ],
+            "responses": {
+                "200": {
+                    "description": "Successful operation",
+                    "id": "http://localhost:5000/add_userData"
+                },
+                "400": {
+                    "description": "Invalid input"
+                }, 
+                "403": {
+                    "description": "Forbidden"
+                }
+            }
+        }
+    },
     "/users_data/{id}": {
         "get": {
             "tags": [
@@ -44,10 +100,10 @@
                     "schema": {
                         "type": "integer",
                         "format": "int64",
-                        "id": "http://localhost:5000/users_data/{id}",
+                        "id": "http://localhost:5000/users_data/{id}"
                        
                     }
-                }
+                }    
             ],
             "responses": {
                 "200": {
@@ -64,13 +120,425 @@
             }
 
            
+        },
+        
+
+        "/add_message":{
+            "post":{
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Add message",
+                "description": "Add new message",
+                "operationId": "addMessage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "add_message",
+                        "description": "add message to the database",
+                        "required": true,
+                        "schema": {
+                            "id": "#/definitions/add_message",
+                            "example": {
+                                "mensaje": "Hello World",
+                                "fecha": "2020-05-05T00:0000.000Z",
+                                "estado": "Enviado"
+                            }
+                       
+                        },
+                        "example": {
+                            "mensaje": "Hello World",
+                            "fecha": "2020-05-05T00:00:00.000Z",
+                            "estado": "Enviado"
+                        }
+                        
+                    }
+        
+                
+                ],
+
+                
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "id": "http://localhost:5000/add_message"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }, 
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/add/clientes/empresa": {
+            "post":{
+                "tags": [
+                    "Clientes Empresa"
+                ],
+                "summary": "Add clientes",
+                "description": "Add new clientes",
+                "operationId": "addClientes",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "add_clientes",
+                        "description": "add clientes to the database",
+                        "required": true,
+                        "schema": {
+                            "id": "#/definitions/add_clientes",
+                            "example": {
+                                "nombre": "John",
+                                "apellidos": "",
+                                "numero_telefono": "",
+                                "pais": "",
+                                "ciudad": "",
+                                "direccion":""
+
+                        }
+                    }
+                }
+        
+                
+            ],
+ 
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "id": "http://localhost:5000/add/clientes/empresa"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }, 
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        
+        "/update_messages/{id}" : {
+            "put": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Update message",
+                "description": "Update message",
+                "operationId": "updateMessage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "update message",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "id": "http://localhost:5000/update_messages/{id}"
+                           
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "update_message",
+                        "description": "update message to the database",
+                        "required": true,
+                        "schema": {
+                            "id": "http://localhost:5000/update_messages/{id}",
+                            "example": {
+                                "mensaje": "Hello World",
+                                "fecha": "2020-05-05T00:0000.000Z",
+                                "estado": "Enviado"
+                            }
+                        }
+                    }
+        
+                
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "id": "http://localhost:5000/update_messages/{id}"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }, 
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+
+        "/clientes_empresa/{id}": {
+            "get": {
+                "tags": [
+                    "Clientes Empresa"
+                ],
+                "summary": "Get clientes empresa",
+                "description": "Get clientes empresa",
+                "operationId": "getClientesEmpresa",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "get clientes empresa",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "id": "http://localhost:5000/clientes_empresa/{id}"
+                           
+                        }
+                    }    
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                    
+                }
+
+            },
+         
+
+        "/message/{id}": {
+            "get": {
+                "tags": [
+                    "Message"
+                ],
+                "summary": "Get message",
+                "description": "Get message",
+                "operationId": "getMessage",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "get message",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "id": "http://localhost:5000/message/{id}"
+                           
+                        }
+                    }    
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                    
+                }
+
+               
+            },
+            "/delete/users_data/{id}":{
+                "delete":{
+                    "tags": [
+                        "User Data"
+                    ],
+                    "summary": "Delete user data",
+                    "description": "Delete user data",
+                    "operationId": "deleteUserData",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "delete user data",
+                            "required": true,
+                            "schema": {
+                                "type": "integer",
+                                "format": "int64",
+                                "id": "http://localhost:5000//delete/users_data/{id}"
+                               
+                            }
+                        }    
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Successful operation"
+                            }
+                        },
+                        "400": {
+                            "description": "Invalid input"
+                        },
+                        "403": {
+                            "description": "Forbidden"
+                        }
+                        
+                    }
+    
+                },
+                
+                "/update_clientes_empresa/{id}":{
+                    "put":{
+                        "tags": [
+                            "Clientes Empresa"
+                        ],
+                        "summary": "Update clientes",
+                        "description": "Update clientes",
+                        "operationId": "updateClientes",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "update clientes",
+                                "required": true,
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "id": "http://localhost:5000/update_clientes_empresa/{id}"
+                                   
+                                }
+                            },
+                            {
+                                "in": "body",
+                                "name": "update_clientes",
+                                "description": "update clientes to the database",
+                                "required": true,
+                                "schema": {
+                                    "id": "#/definitions/update_clientes",
+                                    "example": {
+                                        "nombre": "John",
+                                        "apellidos": "",
+                                        "numero_telefono": "",
+                                        "pais": "",
+                                        "ciudad": "",
+                                        "direccion":""
+                                    }
+                                }
+                            }
+                
+                        
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Successful operation",
+                                "id": "http://localhost:5000/update_clientes_empresa/{id}"
+                            },
+                            "400": {
+                                "description": "Invalid input"
+                            }, 
+                            "403": {
+                                "description": "Forbidden"
+                            }
+                        }
+                    }
+                },
+                "/delete/clientes_empresa/{id}": {
+                    "delete": {
+                        "tags": [
+                            "Clientes Empresa"
+                        ],
+                        "summary": "Delete clientes empresa",
+                        "description": "Delete clientes empresa",
+                        "operationId": "deleteClientesEmpresa",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "delete clientes empresa",
+                                "required": true,
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "id": "http://localhost:5000/delete/clientes_empresa/{id}"
+                                   
+                                }
+                            }    
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Successful operation"
+                                }
+                            },
+                            "400": {
+                                "description": "Invalid input"
+                            },
+                            "403": {
+                                "description": "Forbidden"
+                            }
+                            
+                        }
+    
+                    }
+                },
+            
+
+    "default": {
+        "description": "unexpected error",
+        "schema": {
+            "type": "string"
         }
     },
-
 "tags":[
     {
-        "name": "sms",
-        "description": "SMS"
+        "name": "sms MADS",
+        "description": "SMS API PROYECTO FINAL SENA"
     }
 ],
 
@@ -181,3 +649,7 @@
 }
 }
 }
+
+
+
+
