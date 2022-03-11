@@ -164,7 +164,7 @@ def support_messages_get(id):
         if request.method == 'GET':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("SELECT id, support_ticket_id, type, message FROM support_messages WHERE id = '{0}'".format(id))
+            cursor.execute("SELECT id, support_ticket_id, type_message, message FROM support_messages WHERE id = '{0}'".format(id))
             row = cursor.fetchone()
             if row != None:
                 respuesta = jsonify(row)

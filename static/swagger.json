@@ -146,9 +146,9 @@
                         "schema": {
                             "id": "#/definitions/add_message",
                             "example": {
-                                "mensaje": "Hello World",
-                                "fecha": "2020-05-05T00:0000.000Z",
-                                "estado": "Enviado"
+                                "mensaje": "string",
+                                "fecha": "date",
+                                "estado": "string"
                             }
                        
                         },
@@ -201,12 +201,12 @@
                         "schema": {
                             "id": "#/definitions/add_clientes",
                             "example": {
-                                "nombre": "John",
-                                "apellidos": "",
-                                "numero_telefono": "",
-                                "pais": "",
-                                "ciudad": "",
-                                "direccion":""
+                                "nombre": "string",
+                                "apellidos": "string",
+                                "numero_telefono": "string",
+                                "pais": "string",
+                                "ciudad": "string",
+                                "direccion":"string"
 
                         }
                     }
@@ -265,9 +265,9 @@
                         "schema": {
                             "id": "http://localhost:5000/update_messages/{id}",
                             "example": {
-                                "mensaje": "Hello World",
-                                "fecha": "2020-05-05T00:0000.000Z",
-                                "estado": "Enviado"
+                                "mensaje": "string",
+                                "fecha": "date",
+                                "estado": "string"
                             }
                         }
                     }
@@ -332,7 +332,322 @@
                 }
 
             },
-         
+           
+            "/prueba_sms/{document}":{
+                "get":{
+                    "tags": [
+                        "prueba - sms"
+                    ],
+                    "summary": "Get prueba sms",
+                    "description": "Get prueba sms",
+                    "operationId": "getSms",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "document",
+                            "description": "get sms",
+                            "required": true,
+                            "schema": {
+                                "type": "integer",
+                                "format": "int64",
+                                "id": "http://localhost:5000/prueba_sms/{document}"
+                               
+                            }
+                        }    
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Successful operation"
+                            }
+                        },
+                        "400": {
+                            "description": "Invalid input"
+                        },
+                        "403": {
+                            "description": "Forbidden"
+                        }
+                        
+                    }
+
+                },
+                
+                "/prueba_sms":{
+                    "post":{
+                        "tags": [
+                            "prueba - sms"
+                        ],
+                        "summary": "Add prueba sms",
+                        "description": "Add prueba sms",
+                        "operationId": "addSms",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "body",
+                                "name": "add_sms",
+                                "description": "add sms to the database",
+                                "required": true,
+                                "schema": {
+                                    "id": "#/definitions/add_sms",
+                                    "example": {
+                                        "documento": "string",
+                                        "nombre": "string",
+                                        "telefono": "string",
+                                        "ciudad": "string"
+                                    }
+                                }
+                            }
+            
+                        
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Successful operation",
+                                "id": "http://localhost:5000/prueba_sms"
+                            },
+                            "400": {
+                                "description": "Invalid input"
+                            }, 
+                            "403": {
+                                "description": "Forbidden"
+                            }
+                        }
+                    }
+                },
+                "/transactions/{id}": {
+                    "get": {
+                        "tags": [
+                            "Transactions sms"
+                        ],
+                        "summary": "Get transactions sms",
+                        "description": "Get transactions sms of your acount",
+                        "operationId": "getTransactions",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "get transactions",
+                                "required": true,
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "id": "http://localhost:5000/transactions/{id}"
+                                   
+                                }
+                            }    
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Successful operation"
+                                }
+                            },
+                            "400": {
+                                "description": "Invalid input"
+                            },
+                            "403": {
+                                "description": "Forbidden"
+                            }
+                            
+                        }
+    
+                    
+                },
+                "/token_api/{id}":{
+                    "get":{
+                        "tags": [
+                            "token api"
+                        ],
+                        "summary": "Get token api",
+                        "description": "Get token api",
+                        "operationId": "getToken",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "get token",
+                                "required": true,
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "id": "http://localhost:5000/token_api/{id}"
+                                   
+                                }
+                            }    
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Successful operation"
+                                }
+                            },
+                            "400": {
+                                "description": "Invalid input"
+                            },
+                            "403": {
+                                "description": "Forbidden"
+                            }
+                            
+                        }
+
+                    },
+                    "/support_tickets/{id}":{
+                        "get":{
+                            "tags": [
+                                "support - tickets"
+                            ],
+                            "summary": "Get support tickets",
+                            "description": "Get support tickets",
+                            "operationId": "getSupportTickets",
+                            "consumes": [
+                                "application/json"
+                            ],
+                            "produces": [
+                                "application/json"
+                            ],
+                            "parameters": [
+                                {
+                                    "in": "path",
+                                    "name": "id",
+                                    "description": "get support tickets",
+                                    "required": true,
+                                    "schema": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "id": "http://localhost:5000/support_tickets/{id}"
+                                       
+                                    }
+                                }    
+                            ],
+                            "responses": {
+                                "200": {
+                                    "description": "Successful operation"
+                                    }
+                                },
+                                "400": {
+                                    "description": "Invalid input"
+                                },
+                                "403": {
+                                    "description": "Forbidden"
+                                }
+                                
+                            }
+
+                        },
+                        "/support_tickets":{
+                            "post":{
+                                "tags": [
+                                    "support - tickets"
+                                ],
+                                "summary": "Add support tickets",
+                                "description": "Add support tickets",
+                                "operationId": "addSupportTickets",
+                                "consumes": [
+                                    "application/json"
+                                ],
+                                "produces": [
+                                    "application/json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "body",
+                                        "name": "add_support_tickets",
+                                        "description": "add support tickets to the database",
+                                        "required": true,
+                                        "schema": {
+                                            "id": "#/definitions/add_support_tickets",
+                                            "example": {
+                                                "ticket": "string",
+                                                "from_sms": "string",
+                                                "to_sms": "string",
+                                                "subject": "string",
+                                                "status": "string"
+                                            }
+                                        }
+                                    }
+                                
+                            
+                                ],
+                                "responses": {
+                                    "200": {
+                                        "description": "Successful operation",
+                                        "id": "http://localhost:5000/support_tickets"
+                                    },
+                                    "400": {
+                                        "description": "Invalid input"
+                                    }, 
+                                    "403": {
+                                        "description": "Forbidden"
+                                    }
+                                }
+                            }
+                        },
+                        "/support_messages":{
+                            "post":{
+                                "tags": [
+                                    "Support - Messages"
+                                ],
+                                "summary": "Post support messages",
+                                "description": "Post support messages",
+                                "operationId": "postSupportMessages",
+                                "consumes": [
+                                    "application/json"
+                                ],
+                                "produces": [
+                                    "application/json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "body",
+                                        "name": "support_messages",
+                                        "description": "post support messages to the database",
+                                        "required": true,
+                                        "schema": {
+                                            "id": "#/definitions/support_messages",
+                                            "example": {
+                                                "support_ticket_id": "string",
+                                                "type_message": "string",
+                                                "message": "string"
+                                            }
+                                        }
+                                    }
+                                
+                                ],
+                                "responses": {
+                                    "200": {
+                                        "description": "Successful operation",
+                                        "id": "http://localhost:5000/support_messages"
+                                    },
+                                    "400": {
+                                        "description": "Invalid input"
+                                    }, 
+                                    "403": {
+                                        "description": "Forbidden"
+                                    }
+                                }
+                            }
+                        },
+
 
         "/message/{id}": {
             "get": {
@@ -525,9 +840,53 @@
                             
                         }
     
+                    
+                },
+                "/support_messages/{id}":{
+                    "get":{
+                        "tags": [
+                            "Support - Messages"
+                        ],
+                        "summary": "Get support messages",
+                        "description": "Get support messages",
+                        "operationId": "getSupportMessages",
+                        "consumes": [
+                            "application/json"
+                        ],
+                        "produces": [
+                            "application/json"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "path",
+                                "name": "id",
+                                "description": "get support messages",
+                                "required": true,
+                                "schema": {
+                                    "type": "integer",
+                                    "format": "int64",
+                                    "id": "http://localhost:5000/support_messages/{id}"
+                                   
+                                }
+                            }    
+                        ],
+                        "responses": {
+                            "200": {
+                                "description": "Successful operation"
+                                }
+                            },
+                            "400": {
+                                "description": "Invalid input"
+                            },
+                            "403": {
+                                "description": "Forbidden"
+                            }
+                            
+                        }
                     }
                 },
-            
+               
+                       
 
     "default": {
         "description": "unexpected error",
@@ -649,6 +1008,8 @@
 }
 }
 }
+
+
 
 
 
