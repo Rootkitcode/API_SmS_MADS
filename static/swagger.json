@@ -554,6 +554,93 @@
                             }
 
                         },
+                        "/sms_logs/{id}":{
+                            "get":{
+                                "tags": [
+                                    "sms - logs"
+                                ],
+                                "summary": "Get sms logs",
+                                "description": "Get sms logs",
+                                "operationId": "getSmsLogs",
+                                "consumes": [
+                                    "application/json"
+                                ],
+                                "produces": [
+                                    "application/json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "path",
+                                        "name": "id",
+                                        "description": "get sms logs",
+                                        "required": true,
+                                        "schema": {
+                                            "type": "integer",
+                                            "format": "int64",
+                                            "id": "http://localhost:5000/sms_logs/{id}"
+                                           
+                                        }
+                                    }    
+                                ],
+                                "responses": {
+                                    "200": {
+                                        "description": "Successful operation"
+                                        }
+                                    },
+                                    "400": {
+                                        "description": "Invalid input"
+                                    },
+                                    "403": {
+                                        "description": "Forbidden"
+                                    }
+                                    
+                                }
+
+                        },
+                        "/registro_clientes_planes/{id}":{
+                            "get":{
+                                "tags": [
+                                    "registro - clientes - planes"
+                                ],
+                                "summary": "Get registro clientes planes",
+                                "description": "Get registro clientes planes",
+                                "operationId": "getRegistroClientesPlanes",
+                                "consumes": [
+                                    "application/json"
+                                ],
+                                "produces": [
+                                    "application/json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "path",
+                                        "name": "id",
+                                        "description": "get registro clientes planes",
+                                        "required": true,
+                                        "schema": {
+                                            "type": "integer",
+                                            "format": "int64",
+                                            "id": "http://localhost:5000/registro_clientes_planes/{id}"
+                                           
+                                        }
+                                    }    
+                                ],
+                                "responses": {
+                                    "200": {
+                                        "description": "Successful operation"
+                                        }
+                                    },
+                                    "400": {
+                                        "description": "Invalid input"
+                                    },
+                                    "403": {
+                                        "description": "Forbidden"
+                                    }
+                                    
+                                }
+
+                        },
+                        
                         "/support_tickets":{
                             "post":{
                                 "tags": [
@@ -647,6 +734,54 @@
                                 }
                             }
                         },
+                        "/registro_clientes_planes":{
+                            "post":{
+                                "tags": [
+                                    "registro - clientes - planes"
+                                ],
+                                "summary": "Post registro clientes planes",
+                                "description": "Post registro clientes planes",
+                                "operationId": "postRegistroClientesPlanes",
+                                "consumes": [
+                                    "application/json"
+                                ],
+                                "produces": [
+                                    "application/json"
+                                ],
+                                "parameters": [
+                                    {
+                                        "in": "body",
+                                        "name": "body",
+                                        "description": "Post registro clientes planes",
+                                        "required": true,
+                                        "schema": {
+                                            "id": "#/definitions/add_support_tickets",
+                                            "example": {
+                                                "email": "string",
+                                                "nombre_empresa": "string",
+                                                "nit_empresa": "string",
+                                                "ciudad": "string",
+                                                "telefono": "string",
+                                                "representante": "string"
+                                                }
+                                            }
+                                        } 
+                                ],
+                                "responses": {
+                                    "200": {
+                                        "description": "Successful operation"
+                                        }
+                                    },
+                                    "400": {
+                                        "description": "Invalid input"
+                                    },
+                                    "403": {
+                                        "description": "Forbidden"
+                                    }
+                                    
+                                }
+                            
+                        },
 
 
         "/message/{id}": {
@@ -692,6 +827,92 @@
                 }
 
                
+            },
+            "/receptor_sms/{documento}": {
+                "get": {
+                    "tags": [
+                        "Receptor SMS"
+                    ],
+                    "summary": "Get receptor SMS",
+                    "description": "Get receptor SMS",
+                    "operationId": "getReceptorSMS",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "documento",
+                            "description": "get receptor SMS",
+                            "required": true,
+                            "schema": {
+                                "type": "integer",
+                                "format": "int64",
+                                "id": "http://localhost:5000/receptor_sms/{documento}"
+                               
+                            }
+                        }    
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Successful operation"
+                            }
+                        },
+                        "400": {
+                            "description": "Invalid input"
+                        },
+                        "403": {
+                            "description": "Forbidden"
+                        }
+                        
+                    }
+
+            },
+            "/numeros_telefonos/{id}":{
+                "get":{
+                    "tags": [
+                        "Numeros Telefonos"
+                    ],
+                    "summary": "Get numeros telefonos",
+                    "description": "Get numeros telefonos",
+                    "operationId": "getNumerosTelefonos",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "get numeros telefonos",
+                            "required": true,
+                            "schema": {
+                                "type": "integer",
+                                "format": "int64",
+                                "id": "http://localhost:5000/numeros_telefonos/{id}"
+                               
+                            }
+                        }    
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Successful operation"
+                            }
+                        },
+                        "400": {
+                            "description": "Invalid input"
+                        },
+                        "403": {
+                            "description": "Forbidden"
+                        }
+                        
+                    }
+                
             },
             "/delete/users_data/{id}":{
                 "delete":{
@@ -883,7 +1104,7 @@
                             }
                             
                         }
-                    }
+                    
                 },
                
                        
@@ -1005,6 +1226,7 @@
             }
         }
     }
+}
 }
 }
 }
