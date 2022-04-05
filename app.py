@@ -31,6 +31,11 @@ app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 @app.route('/users_data/<int:id>', methods=['GET'])
 def userdata(id):
     return listar_users_get(id)
+    
+
+@app.route('/auth/user', methods=['POST'])
+def auth_user():
+    return authUser()
 
 @app.route('/message/<int:id>', methods=['GET'])
 def message(id):
@@ -96,7 +101,7 @@ def messagesPost():
 def clientesEmpresa():
     return cleintes_empresa()  # endpoints post
 
-@app.route('/prueba_sms', methods=['POST'])
+@app.route('/add/prueba_sms', methods=['POST'])
 def pruebSms():
     return prueba_sms()  # endpoints post
 
@@ -110,7 +115,7 @@ def supportMess():
 
 @app.route('/registro_clientes_planes', methods=['POST'])
 def registroClientes(): # endpoints post
-    return registro_clientes_planes()
+    return registroClientePlanes()
 
 
 #endpoins put

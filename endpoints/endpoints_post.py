@@ -4,7 +4,7 @@ from sqlite3 import connect
 import pymysql
 from distutils.command.config import config
 from conection_db.connection import *    
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, session
 from config import config
 
 
@@ -12,7 +12,6 @@ from config import config
 '''rutas get clients, user_plans, sms send, paises, admin, user contrl'''
 app = Flask(__name__)
 
-from endpoints.endpoints_post import app
 
 
 
@@ -52,7 +51,7 @@ def userData():
             return jsonify({'message': 'user data added successfully' +
                 str(name) + str(email) + str(mobile) + str(username) + str(password) + str(country) + str(city) + str(post_code) + str(address)})
     except Exception as e:
-        return jsonify({'message': 'user data not added'})
+        return jsonify({'message': 'user data not added' + str(e)})
 
 
 
@@ -70,7 +69,7 @@ def messages():
             return jsonify({'message': 'message added successfully' +
              str(mensaje) + str(fecha) + str(estado)})
     except Exception as e:
-        return jsonify({'message': 'message not added'})
+        return jsonify({'message': 'message not added' + str(e)})
 
 
 def cleintes_empresa():
@@ -90,7 +89,7 @@ def cleintes_empresa():
             return jsonify({'message': 'clientes empresa added successfully'  +
                 str(nombre) + str(apellidos) + str(numero_telefono) + str(pais) + str(ciudad) + str(direccion)})
     except Exception as e:
-            return jsonify({'message': 'clientes empresa not added'})
+            return jsonify({'message': 'clientes empresa not added' + str(e)})
 
 
 def prueba_sms():
@@ -108,7 +107,7 @@ def prueba_sms():
             return jsonify({'message': 'prueba addes successfully' + str(documento) +
                 str(nombre) + str(telefono) + str(ciudad)})
     except Exception as e:
-            return jsonify({'message': 'prueba sms not added'})
+            return jsonify({'message': 'prueba sms not added' + str(e)})
 
 
 
@@ -128,7 +127,7 @@ def support_tickets():
             return jsonify({'message': 'support ticket added successfully' +
                 str(ticket) + str(from_sms) + str(to_sms) + str(subject) + str(status)})
     except Exception as e:
-            return jsonify({'message': 'support ticket not added'})
+            return jsonify({'message': 'support ticket not added' + str(e)})
 
 
 
@@ -139,18 +138,18 @@ def supportMessages():
         message = ['message']
         if request.method == 'POST':
             conn = mysql.connect()
-            cursor = conn.cursor(pymysql.cursors.Discursosr)
+            cursor = conn.cursor(pymysql.cursors.DictCursor)
             cursor.execute("INSERT INTO support_messages(support_ticket_id, type_message,  message) VALUES(%s, %s, %s')",
             (support_ticket_id, type_message,  message ))
             cursor.connection.commit()
             return jsonify({'message': 'support message added successfully' + str(support_ticket_id) +
                 str(type_message) + str(message)})
     except Exception as e:
-            return jsonify({'message': ' support message no added Error'})
+            return jsonify({'message': ' support message no added Error' + str(e)})
 
 
 
-def registro_clientes_planes():
+def registroClientePlanes():
     try:
         email = request.form['email']
         nombre_empresa = request.form['nombre_empresa']
@@ -158,13 +157,35 @@ def registro_clientes_planes():
         ciudad = request.form['ciudad']
         telefono = request.form['telefono']
         representante = request.form['representante']
+        planes_sms = request.form['planes_sms']
+        sms_1_alerta = request.form['sms_1_alerta']
+        sms_2_alerta = request.form['sms_2_alerta']
         if request.method == 'POST':
             conn = mysql.connect()
             cursor = conn.cursor(pymysql.cursors.DictCursor)
-            cursor.execute("INSERT INTO registro_clientes_planes(email, nombre_empresa, nit_empresa, ciudad, telefono, representante) VALUES(%s, %s, %s, %s, %s, %s)",
-            (email ,nombre_empresa, nit_empresa, ciudad, telefono, representante))
+            cursor.execute("INSERT INTO registro_clientes_planes(email, nombre_empresa, nit_empresa, ciudad, telefono, representante, planes_sms, sms_1_alerta, sms_2_alerta) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (email ,nombre_empresa, nit_empresa, ciudad, telefono, representante, planes_sms, sms_1_alerta, sms_2_alerta))
             cursor.connection.commit()
             return jsonify({'message': 'clientes planes added successfully' + str(email) +
-                str(nombre_empresa) + str(nit_empresa) + str(ciudad) + str(telefono) + str(representante)})
+                str(nombre_empresa) + str(nit_empresa) + str(ciudad) + str(telefono) + str(representante) + str(planes_sms) + str(sms_1_alerta) + str(sms_2_alerta)})
     except Exception as e:
-            return jsonify({'message': 'clientes planes not added'})
+            return jsonify({'message': 'clientes planes not added' + str(e)})
+
+
+def authUser():
+    try:
+         email = request.form['email']
+         password = request.form['password']
+         conn = mysql.connect()
+         cursor = conn.cursor(pymysql.cursors.DictCursor)
+         cursor.execute("SELECT email, password FROM users WHERE email = %s AND password = %s", (email, password))
+         row = cursor.fetchone()
+         if row:
+             session['loggedin'] = True
+             session['email'] = row['email']
+             session['password'] = row['password']
+             return jsonify({'message': 'User logged in successfully'})
+         else:
+             return jsonify({'message': 'User not found'})
+    except Exception as e:
+         return jsonify({'message': 'User not logged in users table ' + str(e)})

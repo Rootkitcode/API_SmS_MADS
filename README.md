@@ -13,7 +13,7 @@ This Api is build on python with flask and flasgger
 '/sms_logs/<int:id>' ok
 '/registro_clientes_planes/<int:id>' ok
 '/receptor_sms/<int:documento>' ok
-'/numeros_telefonos/<int:id>'
+'/numeros_telefonos/<int:id>' ok
 
 
 # endpoints post
@@ -23,7 +23,8 @@ This Api is build on python with flask and flasgger
 '/prueba_sms' ok
 '/support_tickets' ok
 '/support_messages'  ok
-'/registro_clientes_planes' ok 
+'/registro_clientes_planes' ok
+'/auth/user' ok 
 
 
 # endpoints PUT
@@ -33,9 +34,7 @@ This Api is build on python with flask and flasgger
 
 # endpoint delete
 
-'/delete/admin/<int:id>'
 '/delete/clientes_empresa/<int:id>' ok
-'/delete/numeros_telefono/<inte:id>'
 '/delete/users_data/<int:id>' ok
 
 

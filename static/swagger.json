@@ -19,13 +19,40 @@
 
     }
 ],
+"components": {
+    "securitySchemes": {
+        "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
+},
 "schemes": [
-    "http"
+    "http",
+    "https"
 ],
+"securityDefinitions": {
+    "bearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+    }
+},
 
 "paths": {
     "/add_userData":{
         "post":{
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "tags": [
                 "User Data"
             ],
@@ -77,8 +104,59 @@
             }
         }
     },
+    "/auth/user":{
+        "post":{
+            "tags": [
+                "User Data"
+            ],
+            "summary": "Authenticate user",
+            "description": "Authenticate user",
+            "operationId": "authUser",
+            "consumes": [
+                "application/json"
+            ],
+            "produces": [
+                "application/json"
+            ],
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "auth_user",
+                    "description": "Authenticate user",
+                    "required": true,
+                    "schema": {
+                        "id": "#/definitions/auth_user",
+                    "example": {
+                        "email": "string",
+                        "password": "string"
+                    }
+                }
+            }
+    
+            
+            ],
+            "responses": {
+                "200": {
+                    "description": "Successful operation",
+                    "id": "http://localhost:5000/auth/user"
+                },
+                "400": {
+                    "description": "Invalid input"
+                }, 
+                "403": {
+                    "description": "Forbidden"
+                }
+            }
+        
+    }
+    },
     "/users_data/{id}": {
         "get": {
+            "security": [
+                {
+                    "bearerAuth": []
+                }
+            ],
             "tags": [
                 "User Data"
             ],
@@ -125,6 +203,11 @@
 
         "/add_message":{
             "post":{
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -180,6 +263,11 @@
         },
         "/add/clientes/empresa": {
             "post":{
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "Clientes Empresa"
                 ],
@@ -232,6 +320,11 @@
         
         "/update_messages/{id}" : {
             "put": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -291,6 +384,11 @@
 
         "/clientes_empresa/{id}": {
             "get": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "Clientes Empresa"
                 ],
@@ -335,6 +433,11 @@
            
             "/prueba_sms/{document}":{
                 "get":{
+                    "security": [
+                        {
+                            "bearerAuth": []
+                        }
+                    ],
                     "tags": [
                         "prueba - sms"
                     ],
@@ -379,6 +482,11 @@
                 
                 "/prueba_sms":{
                     "post":{
+                        "security": [
+                            {
+                                "bearerAuth": []
+                            }
+                        ],
                         "tags": [
                             "prueba - sms"
                         ],
@@ -413,7 +521,7 @@
                         "responses": {
                             "200": {
                                 "description": "Successful operation",
-                                "id": "http://localhost:5000/prueba_sms"
+                                "id": "http://localhost:5000/add/prueba_sms"
                             },
                             "400": {
                                 "description": "Invalid input"
@@ -426,6 +534,11 @@
                 },
                 "/transactions/{id}": {
                     "get": {
+                        "security": [
+                            {
+                                "bearerAuth": []
+                            }
+                        ],
                         "tags": [
                             "Transactions sms"
                         ],
@@ -470,6 +583,11 @@
                 },
                 "/token_api/{id}":{
                     "get":{
+                        "security": [
+                            {
+                                "bearerAuth": []
+                            }
+                        ],
                         "tags": [
                             "token api"
                         ],
@@ -513,6 +631,11 @@
                     },
                     "/support_tickets/{id}":{
                         "get":{
+                            "security": [
+                                {
+                                    "bearerAuth": []
+                                }
+                            ],
                             "tags": [
                                 "support - tickets"
                             ],
@@ -556,6 +679,11 @@
                         },
                         "/sms_logs/{id}":{
                             "get":{
+                                "security": [
+                                    {
+                                        "bearerAuth": []
+                                    }
+                                ],
                                 "tags": [
                                     "sms - logs"
                                 ],
@@ -599,6 +727,11 @@
                         },
                         "/registro_clientes_planes/{id}":{
                             "get":{
+                                "security": [
+                                    {
+                                        "bearerAuth": []
+                                    }
+                                ],
                                 "tags": [
                                     "registro - clientes - planes"
                                 ],
@@ -643,6 +776,11 @@
                         
                         "/support_tickets":{
                             "post":{
+                                "security": [
+                                    {
+                                        "bearerAuth": []
+                                    }
+                                ],
                                 "tags": [
                                     "support - tickets"
                                 ],
@@ -691,6 +829,11 @@
                         },
                         "/support_messages":{
                             "post":{
+                                "security": [
+                                    {
+                                        "bearerAuth": []
+                                    }
+                                ],
                                 "tags": [
                                     "Support - Messages"
                                 ],
@@ -736,6 +879,11 @@
                         },
                         "/registro_clientes_planes":{
                             "post":{
+                                "security": [
+                                    {
+                                        "bearerAuth": []
+                                    }
+                                ],
                                 "tags": [
                                     "registro - clientes - planes"
                                 ],
@@ -762,7 +910,10 @@
                                                 "nit_empresa": "string",
                                                 "ciudad": "string",
                                                 "telefono": "string",
-                                                "representante": "string"
+                                                "representante": "string",
+                                                "planes_sms": "string",
+                                                "sms_1_alerta": "string",
+                                                "sms_2_alerta": "string"
                                                 }
                                             }
                                         } 
@@ -786,6 +937,11 @@
 
         "/message/{id}": {
             "get": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "Message"
                 ],
@@ -830,6 +986,11 @@
             },
             "/receptor_sms/{documento}": {
                 "get": {
+                    "security": [
+                        {
+                            "bearerAuth": []
+                        }
+                    ],
                     "tags": [
                         "Receptor SMS"
                     ],
@@ -873,6 +1034,11 @@
             },
             "/numeros_telefonos/{id}":{
                 "get":{
+                    "security": [
+                        {
+                            "bearerAuth": []
+                        }
+                    ],
                     "tags": [
                         "Numeros Telefonos"
                     ],
@@ -916,6 +1082,11 @@
             },
             "/delete/users_data/{id}":{
                 "delete":{
+                    "security": [
+                        {
+                            "bearerAuth": []
+                        }
+                    ],
                     "tags": [
                         "User Data"
                     ],
@@ -960,6 +1131,11 @@
                 
                 "/update_clientes_empresa/{id}":{
                     "put":{
+                        "security": [
+                            {
+                                "bearerAuth": []
+                            }
+                        ],
                         "tags": [
                             "Clientes Empresa"
                         ],
@@ -1021,6 +1197,11 @@
                 },
                 "/delete/clientes_empresa/{id}": {
                     "delete": {
+                        "security": [
+                            {
+                                "bearerAuth": []
+                            }
+                        ],
                         "tags": [
                             "Clientes Empresa"
                         ],
@@ -1065,6 +1246,11 @@
                 },
                 "/support_messages/{id}":{
                     "get":{
+                        "security": [
+                            {
+                                "bearerAuth": []
+                            }
+                        ],
                         "tags": [
                             "Support - Messages"
                         ],
